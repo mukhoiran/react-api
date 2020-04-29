@@ -5,13 +5,21 @@ import './App.css';
 function App() {
 
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   //similar with componentDidMount()
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(response => response.json())
-      .then(data => setItems(data))
+      .then(function(data){
+        setItems(data)
+        setIsLoading(false)
+      })
   });
+
+  if(isLoading){
+    return <p>Loading...</p>
+  }
 
   return (
     <div>
